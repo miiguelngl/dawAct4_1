@@ -3,21 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Puzzle - Miguel Angel Garcia Perez</title>
 </head>
 <body>
-    <h1>Módulos de desarrollo de aplicaciones web</h1>
-    <ul>
-        <li>Desarrollo en entorno cliente</li>
-        <li>Desarrollo en entorno servidor</li>
-        <li>Despliegue de aplicaciones web</li>
-        <li>Diseño de interfaces web</li>
-	    <li>Ingles</li>
-        <li>Modulo a</li>
-	<li>Ingles</li>
-	<li>Empresa</li>
-	<li>Nuevo modulo</li>
-	<li>Modulo inventado</li>
-    </ul>
+    <script type="text/javascript">
+        //Contador de segundos
+        var n = 0;
+        function contador(){
+            window.setInterval(function(){n++;},1000);
+        }
+        contador();
+        //Funcion para comprobar si los arrays de las imagenes son iguales en el mismo orden
+        //Se comprueba que el array en orden de las imagenes coincide con el array recogido del puzzle
+        function isEqual(a, b){
+            if (a instanceof Array && b instanceof Array){
+                if (a.length !== b.length) {
+                    return false;
+                }
+                for (var i = 0; i < a.length; i++){
+                    if (!isEqual(a[i], b[i])) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return a === b;
+        }
+        //Funcion para recoger los valores de las imagenes para comprobar que estan en el mismo orden y ver si lo ha completado
+        function comprobar(){
+            var imgComprobar = ["img1","img2","img3","img4","img5","img6","img7","img8","img9","img10","img11","img12","img13","img14","img15"]; //Array con los nombres de las imagenes
+            var imgValues = new Array();
+            for (let index = 0; index < imgComprobar.length; index++) {
+                imgValues.push(document.querySelectorAll("img")[index].alt); //Añadimos al array el atributo de las imagenes en el orden que esta
+            }
+            if(isEqual(imgValues, imgComprobar)){ //Comprobamos que el orden coincide llamando a la funcion
+                alert("Conseguido!! Has tardado " + n + "s"); 
+            }
+        }
+        //Funcion para comprobar huecos y mover las imagenes de celda
+        function mover_imagen(event) {
+            var cell = event.target.parentElement; // Obtiene el elemento padre (celda) de la imagen que se hizo clic
+            var row = cell.parentElement.rowIndex; // Obtiene el índice de la fila de la celda
+            var column = cell.cellIndex; // Obtiene el índice de la columna de la celda
+
+            var table = document.querySelector("table");
+            
+            if((row - 1) >= 0){ //Comprobamos que la celda de arriba se puede comprobar y no esta fuera de los límites
+                var celdaArriba = table.rows[row - 1].cells[column]; //Recogemos el valor de la celda de arriba
+                if(!celdaArriba.innerText.trim() && celdaArriba.children.length === 0){ //Comprobamos que la celda recogida esta vacia
+                    celdaArriba.appendChild(event.target); //En caso de estarlo movemos la imagen
+                    comprobar(); //Comprobamos si esta en el orden
+                }
+            }
+            if((row + 1) < 4){ //Comprobamos que la celda de abajo se puede comprobar y no esta fuera de los límites
+                var celdaAbajo = table.rows[row + 1].cells[column];//Recogemos el valor de la celda de abajo
+                if(!celdaAbajo.innerText.trim() && celdaAbajo.children.length === 0){
+                    celdaAbajo.appendChild(event.target);
+                    comprobar();
+                }
+            }
+            if((column - 1) >= 0){ //Comprobamos que la celda de la izquierda se puede comprobar y no esta fuera de los límites
+                var celdaIzq = table.rows[row].cells[column - 1]; //Recogemos el valor de la celda de la izquierda
+                if(!celdaIzq.innerText.trim() && celdaIzq.children.length === 0){
+                    celdaIzq.appendChild(event.target);
+                    comprobar();
+                }
+            }
+            if((column + 1) < 4){ //Comprobamos que la celda de la derecha se puede comprobar y no esta fuera de los límites
+                var celdaDer = table.rows[row].cells[column + 1]; //Recogemos el valor de la celda de la derecha
+                if(!celdaDer.innerText.trim() && celdaDer.children.length === 0){
+                    celdaDer.appendChild(event.target);
+                    comprobar();
+                }
+            }
+        }
+        //Funcion para generar numeros aleatorios sin que se repitan para asi poner las imagenes en aleatorio
+        function numerosAleatorios(){
+            let lista = [];
+            let repetido;
+            for (let i = 0; i < 15; i++) {
+                while (!lista[i]) {
+                    repetido = true;
+                    while (repetido == true) {
+                        let random = Math.random();
+                        random = random * 15 + 1;
+                        random = Math.trunc(random);
+                        for (let j = 0; j < lista.length; j++) { //Recorremos el array buscando si el numero que ha sido generado ya existe o no
+                            if (lista[j] == random) {
+                                repetido = true;
+                                break;
+                            } else {
+                                repetido = false;
+                            }
+                        }
+                        lista[i] = random;
+                    }
+
+                }
+            }
+            return lista;
+        }
+        //Funcion para añadir las imagenes en las celdas
+        function anyadir_imagenes() {
+
+            var table = document.querySelector("table"); // Obtiene la tabla
+            var numArray = numerosAleatorios();//Obtenemos los números aleatorios sin repetir llamando a la funcion
+
+            for (let index = 1; index < 16; index++) {
+                var cell = table.rows[Math.floor((index - 1) / 4)].cells[(index - 1) % 4]; // Encuentra la celda correspondiente en la tabla
+                var img = document.createElement("img"); //Crea el elemento imagen añadiendole los diferentes atributos
+                    img.src = "imagenes/" + numArray[index - 1]+ ".gif";
+                    img.alt = "img" + numArray[index - 1];
+                    img.onclick = function() {mover_imagen(event)};
+                cell.appendChild(img); //Añadimos la imagen a la celda
+            }
+        }
+        //Funcion para crear la tabla
+        function seleccion_tabla(){
+            var oTable =document.createElement("table");
+            oTable.setAttribute("border","1");
+            oTable.setAttribute("width","25%");
+            var oTbody =document.createElement("tbody");
+            oTable.appendChild(oTbody);
+            for (let i = 0; i < 4; i++) {
+
+                var oTr1 =document.createElement("tr");
+                oTbody.appendChild(oTr1);
+
+                for (let index = 0; index < 4; index++) {
+                    var oTd11 =document.createElement("td");
+                    oTr1.appendChild(oTd11);
+                }
+            }
+            document.body.appendChild(oTable);
+        }
+        //Llamamos a las funciones principales para cargar el juego
+        seleccion_tabla();
+        anyadir_imagenes();
+    </script>
 </body>
 </html>
