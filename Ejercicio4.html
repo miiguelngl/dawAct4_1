@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input{
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+    <form ACTION="Ejercicio4.php" METHOD="post">
+        Introduzca el primer numero: <input TYPE="number" NAME="num1" SIZE="5"> <br>
+        Introduzca el segundo numero: <input TYPE="number" NAME="num2" SIZE="5"> <br>
+        Seleccione la operación: <br>
+        <input type="checkbox" name="opcion[]" value="suma">Suma
+        <input type="checkbox" name="opcion[]" value="resta">Resta
+        <input type="checkbox" name="opcion[]" value="producto">Producto
+        <input type="checkbox" name="opcion[]" value="cociente">Cociente
+
+        <br>
+        <input TYPE="submit" name="bAceptar" >    
+    </form>
+</body>
+</html>
