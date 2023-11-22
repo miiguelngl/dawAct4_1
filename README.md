@@ -1,46 +1,61 @@
-# dawAct4_1
-## Practica 2.4
-### Uso avanzado de GitHub
-**Hecho por Miguel Angel Garcia**
-_DAW7K_
-[abastos](https://portal.edu.gva.es/iesabastos/es/centre/)
-![abastos image](abastos.jpg)
+# Primera parte del examen de DAW
+---
+## Formatear correctamente los títulos vale 0.2 ptos
+---
+## Formato (0.4 ptos)
+---
+Podemos poner un texto en **negrita**, otro en _cursiva_ y un tercero en **_negrita y cursiva_**
+
+
+También podemos hacerlo en una lista de puntos:
+ * negrita
+ * _cursiva_
+ * _negrita y cursiva_
+
+## Listas (0.4 ptos)
+---
+Además de las listas con puntos tenemos las listas numeradas
+1. Uno
+2. Dos
+3. Tres
+
+### Listas multinivel (es un título de tercer nivel)
+También podemos hacer listas multinivel
+1. Primer paso
+    1. Item 1.1
+    2. Item 1.2
+        * Incluso combinando con
+            * una lista de puntos multinivel
+                * dentro del punto 1.2
+2. Segundo paso
+    1. Item 2.1
+    2. Item 2.2
+
+## Segunda parte del examen de DAW
+---
+### Enlaces e imágenes (0.2 ptos)
+---
+Podemos poner un enlace a [abastos](www.iesabastos.org)
+
+**Imágenes**
+O podemos insertar una imagen
+
+![pulgar_hacia_arriba](pulgar_arriba.jpg)
+
+### Código (0.2 ptos)
+---
+Podemos resaltar líneas de código, como: var saludo='Hola Mundo'
+
+Y también podemos resaltar bloques de código
 ```
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 3 Miguel Angel</title>
-</head>
-<body>
-    <h1>Marc Bills</h1>
-    <table>
-        <tr>
-            <td></td>
-            <td><strong>Price</strong></td>
-            <td><strong>Due</strong></td>
-            <td><strong>Date</strong></td>
-        </tr>
-        <tr>
-            <td>Phone</td>
-            <td>$50</td>
-            <td>March</td>
-            <td>1st</td>
-        </tr>
-        <tr>
-            <td>Car insurance</td>
-            <td>$100</td>
-            <td>March</td>
-            <td>5th</td>
-        </tr> 
-        <tr>
-            <td>Internet</td>
-            <td>$70</td>
-            <td>March</td>
-            <td>10th</td>
-        </tr> 
-    </table>
-</body> 
-</html>
+var linea = readline();
+linea = linea.split(' ');
+console.log(linea.reverse().join(' '));
+```
+
+**Y si ponemos el lenguaje (_javascript_) a continuación de la primera marca de bloque de código, se resalta en el formato de ese lenguaje!!**
+```javascript
+var linea = readline();
+linea = linea.split(' ');
+console.log(linea.reverse().join(' '));
 ```
